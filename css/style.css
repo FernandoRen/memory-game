@@ -1,0 +1,31 @@
+html{
+    box-sizing: border-box;
+    font-size: 62.5%; /*reset para rems - 62.5% = 10px de 16px */
+}
+*, *:before, *:after{
+    box-sizing: inherit;
+}
+
+.centrar-contenido{
+    margin: 0 auto;
+    width: 120rem;
+    max-width: 95%;
+}
+.contenedor{
+    height: 60vh;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px;
+}
+
+.card{
+    flex: 0 0 calc(25% - 1rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto;
+    background-color: black;
+    border-radius: 10px;
+    height: 120px;
+    width: 200px;
+}
