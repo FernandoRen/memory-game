@@ -71,7 +71,7 @@ function elemento(e){
                 clicks = [];
                 cardToBlack = [];
             } 
-        }, 3000);
+        }, 2000);
         
          
     }
