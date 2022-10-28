@@ -83,7 +83,7 @@ function elemento(e){
                     clicks = [];
                     cardToBlack = [];
                     container.addEventListener("click", elemento);
-                }, 2000); 
+                }, 1500); 
             } 
         }
         
