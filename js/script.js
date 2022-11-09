@@ -1,6 +1,8 @@
 let container = document.querySelector(".contenedor");
+let intentosDOM = document.querySelector("#intentos");
 let clicks = [];
 let cardToBlack = [];
+let intentos = 0;
 
 document.addEventListener("DOMContentLoaded", () =>{
     container.addEventListener("click", elemento);
@@ -12,21 +14,6 @@ function construirCard(){
     const arregloCartas = seleccionarCartas();
 
     let randomPositionDom = [...arregloCartas, ...arregloCartas];
-    for (let i = 0; i < arregloCartas.length; i++) {
-        
-        /*let divCard =  document.createElement("div");
-        divCard.classList.add("card");
-        divCard.setAttribute("id", arregloCartas[i] +"-1");
-
-        let divCard2 =  document.createElement("div");
-        divCard2.classList.add("card");
-        divCard2.setAttribute("id", arregloCartas[i] +"-2");
-
-
-        container.appendChild(divCard);
-        container.appendChild(divCard2);*/
-    }    
-    console.log(randomPositionDom);
     randomPositionDom = randomPositionDom.sort(() => Math.random() - 0.5);
     let index = 0;
     for (let i = 0; i < 16; i++) {
@@ -37,9 +24,6 @@ function construirCard(){
         container.appendChild(divCard);
         index++;
     }
-
-    console.log(randomPositionDom);
-    
 }
 
 function elemento(e){
@@ -55,40 +39,63 @@ function elemento(e){
         if (tag != "contenedor") {
             //return tag;
             console.log("El elemento selecionado ha sido " + tag);
+
         
             let id_DOM = document.getElementById(tag);
             let id_Revelar = revelar(tag);
         
             clicks.push(id_Revelar);
             cardToBlack.push(tag);
-            
+        
             id_DOM.style.backgroundColor = "transparent";
             id_DOM.innerHTML = `
-                <img src="./img/${id_Revelar}.jpg" height="120px" width="200px">
+                <img src="./img/${id_Revelar}.jpg" height="120px" width="200px" class="pXY-10">
             `;
 
             if(clicks.length == 2){
                 container.removeEventListener("click", elemento);
-                setTimeout(function(){
+               // setTimeout(function(){
                     if (clicks[0] != clicks[1]) {
+                        for (let i = 0; i < cardToBlack.length; i++) {
+                           let addFrame = document.getElementById(cardToBlack[i]);
+                            addFrame.style.border = "3px solid red";
+                        }
+                        
                         if (cardToBlack.length == 2) {
                             for(let i = 0; i < cardToBlack.length; i++){
                                 let backToBlack = document.getElementById(cardToBlack[i]);
-                                backToBlack.style.backgroundColor = "black";
-                                id_DOM.innerHTML = "";
-                                backToBlack.innerHTML = ``;
+                                setTimeout(function(){
+                                    backToBlack.style.backgroundColor = "black";
+                                    id_DOM.innerHTML = "";
+                                    backToBlack.innerHTML = ``;
+                                    backToBlack.style.border = "none";
+                                    container.addEventListener("click", elemento);
+                                }, 1200);
                             }
                         }
+                
+                    } else {
+                        
+                        for (let i = 0; i < cardToBlack.length; i++) {
+                            let addFrame = document.getElementById(cardToBlack[i]);
+                            addFrame.style.border = "3px solid green";
+                        }
+                        setTimeout(function(){
+                        container.addEventListener("click", elemento);
+                    }, 1200);
                     }
                     clicks = [];
                     cardToBlack = [];
-                    container.addEventListener("click", elemento);
-                }, 1500); 
+                    avoidSameCard = [];
+                   // container.addEventListener("click", elemento);
+               // }, 500);
+               intentos++;
+               intentosDOM.innerHTML = `Intentos: ${intentos}`;
             } 
         }
-        
     }
 }
+
 
 function revelar(tag){
     let elementoClickeado = tag;
@@ -108,7 +115,6 @@ function seleccionarCartas(){
             let valorRepetido = randomSelection.includes(numeroRandom);
             
             if (!valorRepetido) {
-                console.log(valorRepetido);
                 randomSelection.push(numeroRandom);
             }
             

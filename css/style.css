@@ -29,3 +29,20 @@ html{
     height: 120px;
     width: 200px;
 }
+
+.pXY-10{
+    padding: 10px 0;
+}
+
+h1{
+    color: rgb(252, 255, 65);
+    font-weight: bold;
+    font-size: 35px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+body{
+    background-image: url("./../img/main-bg.jpg");
+    background-repeat: no-repeat;
+}
