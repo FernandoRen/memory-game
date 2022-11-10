@@ -36,62 +36,62 @@ function elemento(e){
             tag = e.target.id;
         }
 
-        if (tag != "contenedor") {
+        if (tag != "contenedor" && e.target.nodeName !== "IMG") {
             //return tag;
-            console.log("El elemento selecionado ha sido " + tag);
-
+            //console.log(e.target.nodeName )
+            //console.log("El elemento selecionado ha sido " + tag);
         
             let id_DOM = document.getElementById(tag);
             let id_Revelar = revelar(tag);
         
             clicks.push(id_Revelar);
             cardToBlack.push(tag);
-        
-            id_DOM.style.backgroundColor = "transparent";
-            id_DOM.innerHTML = `
-                <img src="./img/${id_Revelar}.jpg" height="120px" width="200px" class="pXY-10">
-            `;
+            
+                id_DOM.style.backgroundColor = "transparent";
+                id_DOM.innerHTML = `
+                    <img src="./img/${id_Revelar}.jpg" height="120px" width="200px" class="pXY-10">
+                `;
 
-            if(clicks.length == 2){
-                container.removeEventListener("click", elemento);
-               // setTimeout(function(){
-                    if (clicks[0] != clicks[1]) {
-                        for (let i = 0; i < cardToBlack.length; i++) {
-                           let addFrame = document.getElementById(cardToBlack[i]);
-                            addFrame.style.border = "3px solid red";
-                        }
-                        
-                        if (cardToBlack.length == 2) {
-                            for(let i = 0; i < cardToBlack.length; i++){
-                                let backToBlack = document.getElementById(cardToBlack[i]);
-                                setTimeout(function(){
-                                    backToBlack.style.backgroundColor = "black";
-                                    id_DOM.innerHTML = "";
-                                    backToBlack.innerHTML = ``;
-                                    backToBlack.style.border = "none";
-                                    container.addEventListener("click", elemento);
-                                }, 1200);
-                            }
-                        }
-                
-                    } else {
-                        
-                        for (let i = 0; i < cardToBlack.length; i++) {
+                if(clicks.length == 2){
+                    container.removeEventListener("click", elemento);
+                // setTimeout(function(){
+                        if (clicks[0] != clicks[1]) {
+                            for (let i = 0; i < cardToBlack.length; i++) {
                             let addFrame = document.getElementById(cardToBlack[i]);
-                            addFrame.style.border = "3px solid green";
+                                addFrame.style.border = "3px solid red";
+                            }
+                            
+                            if (cardToBlack.length == 2) {
+                                for(let i = 0; i < cardToBlack.length; i++){
+                                    let backToBlack = document.getElementById(cardToBlack[i]);
+                                    setTimeout(function(){
+                                        backToBlack.style.backgroundColor = "black";
+                                        id_DOM.innerHTML = "";
+                                        backToBlack.innerHTML = ``;
+                                        backToBlack.style.border = "none";
+                                        container.addEventListener("click", elemento);
+                                    }, 1200);
+                                }
+                            }
+                    
+                        } else {
+                            
+                            for (let i = 0; i < cardToBlack.length; i++) {
+                                let addFrame = document.getElementById(cardToBlack[i]);
+                                addFrame.style.border = "3px solid green";
+                            }
+                            setTimeout(function(){
+                                container.addEventListener("click", elemento);
+                            }, 1200);
                         }
-                        setTimeout(function(){
-                        container.addEventListener("click", elemento);
-                    }, 1200);
-                    }
-                    clicks = [];
-                    cardToBlack = [];
-                    avoidSameCard = [];
-                   // container.addEventListener("click", elemento);
-               // }, 500);
-               intentos++;
-               intentosDOM.innerHTML = `Intentos: ${intentos}`;
-            } 
+                        clicks = [];
+                        cardToBlack = [];
+                        avoidSameCard = [];
+                    // container.addEventListener("click", elemento);
+                // }, 500);
+                intentos++;
+                intentosDOM.innerHTML = `Intentos: ${intentos}`;
+                } 
         }
     }
 }
